@@ -9,17 +9,18 @@ on:
      - cron: 00 14 * * * # 7:30 PM IST
      - cron: 00 06 * * 1-5 # monday to friday 
 
-  jobs:
+jobs:
     run-postman-tests:
       runs-on: ubuntu-latest
+      
       steps:
         - name : checkout the code
-         uses : actions/checkout@v5.1.0
+          uses : actions/checkout@v5.1.0
 
         - name: Install NodeJs and npm
-         uses: actions/setup-node@v6.5.0
-         with:
-           node-version: '22'
+          uses: actions/setup-node@v6.5.0
+          with:
+            node-version: '22'
 
         - name: Install Newman and Html extra globally
           run: |
@@ -34,7 +35,8 @@ on:
                 -r cli,htmlextra
 
         - name: Archieve Newman Reports
-         uses: actions/upload-artifact@v7.0.1
-         with:
-           name: Newman Reports
-           path: newman/*.html
+          if: always()
+          uses: actions/upload-artifact@v7.0.1
+          with:
+            name: newman-reports-html
+            path: newman/*.html
