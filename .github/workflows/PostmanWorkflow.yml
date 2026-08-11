@@ -12,29 +12,28 @@ on:
   jobs:
     run-postman-tests:
       runs-on: ubuntu-latest
-
       steps:
-        -name: checkout the code
-         uses: actions/checkout@v5.1.0
+        - name : checkout the code
+         uses : actions/checkout@v5.1.0
 
-        -name: Install NodeJs and npm
+        - name: Install NodeJs and npm
          uses: actions/setup-node@v6.5.0
          with:
            node-version: '22'
 
-        -name: Install Newman and Html extra globally
+        - name: Install Newman and Html extra globally
           run: |
                 npm install -g newman
                 npm install -g newman-reporter-htmlextra
 
-        -name: Run the postman collection using newman
+        - name: Run the postman collection using newman
           run: |
                 newman run 'InWarrentyFlowCollection With Newman CLI.postman_collection.json' \
                 -e QA.postman_environment.json \
                 -d testdata.csv \
                 -r cli,htmlextra
 
-        -name: Archieve Newman Reports
+        - name: Archieve Newman Reports
          uses: actions/upload-artifact@v7.0.1
          with:
            name: Newman Reports
