@@ -11,7 +11,7 @@ on:
 
 jobs:
     run-postman-tests:
-      runs-on: guru-ec2-github-runner
+      runs-on: ubuntu-latest
       
       steps:
         - name : checkout the code
